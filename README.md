@@ -73,3 +73,5 @@ I'd rather show than tell.  This usually happens inside of a `JButton` `ActionLi
 
 In the example application, I used an anonymous `ActionListener` class.  I checked to make sure the user pressed the "OK" `JButtton` before I updated the example item list.
 
+The `SearchableCheckComboBox` and `SearchableCheckComboBoxDialog` classes have javadocs.
+
