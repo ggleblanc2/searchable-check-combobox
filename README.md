@@ -32,3 +32,44 @@ To use this searchable, checkbox, combobox `JDialog`, you have to follow four st
 2. Create a `java.util.List` class of decorator class instances.
 3. Instanstiate the `SearchableCheckComboBoxDialog` class.
 4. Test the return code to make sure the user pressed the `OK` button on the `JDialog`.
+
+### Decorator Class
+
+I'd rather show than tell.  Here's the `ExampleItem` class I created to decorate a `String`.  You can decorate any plain Java getter/setter class.
+
+ 	public class ExampleItem extends BaseItem {
+  		
+  		private String item;
+  		
+  		public ExampleItem(String item, boolean isSelected) {
+  			this.item = item;
+  			setSelected(isSelected);
+  		}
+
+		@Override
+		public String toDisplayString() {
+			return item;
+		}
+  	}
+
+You create a constructor and define the `toDisplayString` method.  You would carry forward any class methods that you need from the decorated class.  In this example application, I didn't use any of the `String` class methods.
+
+### Instantiate the `SearchableCheckComboBoxDialog` Class
+
+I'd rather show than tell.  This usually happens inside of a `JButton` `ActionListener` so I'll show the entire class.
+
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				Font font = textArea.getFont();
+				SearchableCheckComboBoxDialog<ExampleItem> dialog = 
+						new SearchableCheckComboBoxDialog<>(frame, font, exampleItemList);
+				if (dialog.getReturnCode() == SearchableCheckComboBoxDialog.OK_BUTTON_PRESSED) {
+					exampleItemList = dialog.getAllItems();
+					updateMainPanel();
+				}
+			}
+		});
+
+In the example application, I used an anonymous `ActionListener` class.  I checked to make sure the user pressed the "OK" `JButtton` before I updated the example item list.
+
